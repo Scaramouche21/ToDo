@@ -1,15 +1,3 @@
-const tasks = {
-    all: [
-        {id:1, title: 'title1', description: '', startDate: '', endDate:''}
-    ],
-    complete: [
-        {id:2, title: 'title2', description: '', startDate: '', endDate:''}
-    ],
-    overdue: [
-        {id:3, title: 'title3', description: '', startDate: '', endDate:''}
-    ]
-}
-
 if(!localStorage.getItem('tasks')){
     localStorage.setItem('tasks', JSON.stringify({
         all: [],
@@ -102,7 +90,23 @@ function generateTasks(type){
         `;
 
     }
+const buttonComplete = document.querySelectorAll('button.button-complete');
+buttonComplete.forEach( button => {
+    button.addEventListener('click', event => {
+        let id = Number( button.parentNode.parentNode.id.split('-')[2] )
+        let tasks = get()
+        let index = tasks.all.findIndex( (obj) => obj.id === id )
+
+        tasks.complete.push( tasks.all[index] );
+        tasks.all.splice (index, 1);
+
+        set(tasks)
+        generateTasks(type)
+
+    })
+})
 
 }
 
 window.onload = generateTasks('all')
+
