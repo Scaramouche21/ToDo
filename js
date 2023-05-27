@@ -1,3 +1,18 @@
+const tasks = {
+    all: [
+        {id:1, title: 'Title1', description: 'Description 1', startDate: '', endDate:''},
+        {id:2, title: 'Title2', description: 'Description 2', startDate: '', endDate:''},
+        {id:3, title: 'Title3', description: 'Description 3', startDate: '', endDate:''},
+    ],
+    complete: [],
+    overdue: [
+        {id:9, title: 'Title9', description: 'Description 9', startDate: '', endDate:''},
+        {id:10, title: 'Title10', description: 'Description 10', startDate: '', endDate:''},
+    ]
+}
+
+// set(tasks)
+
 if(!localStorage.getItem('tasks')){
     localStorage.setItem('tasks', JSON.stringify({
         all: [],
@@ -32,13 +47,11 @@ function generateTasks(type){
     const placeTasks = document.querySelector('div.tasks')
     const tasks = get()[type];
 
-
-
     let html = ''
 
     let navigate = type === 'all'
-        ?  '<button class="button-complete green">Завершено</button> <button class="button-delete red">Удалить</button>'
-        :  '<button class="button-delete red">Удалить</button>'
+        ? '<button class="button-complete green">Завершено</button><button class="button-delete red">Удалить</button>'
+        : '<button class="button-delete red">Удалить</button>'
 
     for(let task of tasks){
         html += `
@@ -82,31 +95,43 @@ function generateTasks(type){
     }
     titleTasks.textContent = name;
 
-    if(tasks.length === 0) {
+    if(tasks.length === 0){
         placeTasks.innerHTML = `
             <div class="not-found-tasks">
                 <h2>Задачи не найдены</h2>
             </div>
-        `;
-
+        `
     }
-const buttonComplete = document.querySelectorAll('button.button-complete');
-buttonComplete.forEach( button => {
-    button.addEventListener('click', event => {
-        let id = Number( button.parentNode.parentNode.id.split('-')[2] )
-        let tasks = get()
-        let index = tasks.all.findIndex( (obj) => obj.id === id )
 
-        tasks.complete.push( tasks.all[index] );
-        tasks.all.splice (index, 1);
+    const buttonComplete = document.querySelectorAll('button.button-complete');
+    buttonComplete.forEach( button => {
+        button.addEventListener('click', event => {
+            console.log( button.parentNode.parentNode.id )
+            let id = Number( button.parentNode.parentNode.id.split('-')[2] )
+            let tasks = get()
+            let index = tasks.all.findIndex((obj) => obj.id === id);
 
-        set(tasks)
-        generateTasks(type)
+            tasks.complete.push( tasks.all[index] );
+            tasks.all.splice(index, 1);
 
+            set(tasks)
+            generateTasks(type)
+        })
     })
-})
+    const buttonDelete = document.querySelectorAll('button.button-delete')
+    buttonDelete.forEach( button => {
+        button.addEventListener('click', event => {
+            const id = Number ( button.parentNode.parentNode.id.split('-')[2] )
+            const tasks = get()
+            const index = tasks[type].findIndex( obj => obj.id === id )
+
+            tasks[type].splice(index, 1);
+
+            set(tasks);
+            generateTasks(type)
+        })
+    })
 
 }
 
-window.onload = generateTasks('all')
-
+window.onload = generateTasks('all');
