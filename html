@@ -15,39 +15,25 @@
     </header>
     <main class="container">
         <h3 id="title-tasks" class="title-tasks title-all">Все задачи</h3>
-        <div class="tasks">
-
-            <div class="task complete" id="task-id-2">
-                <div class="info">
-                    <h3 class="task-name">Name title</h3>
-                    <p class="task-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aspernatur blanditiis consectetur, consequuntur dicta dolorem dolores error est eveniet fugiat, incidunt inventore perspiciatis porro reiciendis rerum suscipit temporibus, totam velit.</p>
-                    <p class="task-date">
-                        <span class="date-start">2023-05-11 12:12</span>
-                        до
-                        <span class="date-end">2023-05-11 14:45</span>
-                    </p>
-                </div>
-                <div class="navigate">
-                    <button class="button-delete red">Удалить</button>
-                </div>
-            </div>
-            <div class="task overdue" id="task-id-3">
-                <div class="info">
-                    <h3 class="task-name">Name title</h3>
-                    <p class="task-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aspernatur blanditiis consectetur, consequuntur dicta dolorem dolores error est eveniet fugiat, incidunt inventore perspiciatis porro reiciendis rerum suscipit temporibus, totam velit.</p>
-                    <p class="task-date">
-                        <span class="date-start">2023-05-11 12:12</span>
-                        до
-                        <span class="date-end">2023-05-11 14:45</span>
-                    </p>
-                </div>
-                <div class="navigate">
-                    <button class="button-delete red">Удалить</button>
-                </div>
-            </div>
-        </div>
+        <div class="tasks"></div>
     </main>
 
-    <script src="ToDo1.js"></script>
+    <div class="add-tasks">
+        <div class="form">
+        <h2>Добавить задачу</h2>
+        <form>
+            <input type="text" placeholder="Title text" name="title" id="title">
+            <input type="text" placeholder="Description task" name="description" id="description">
+
+            <input type="date" id="endDate">
+            <input type="time" id="endDateTime">
+
+            <button id="addTask">Добавить задачу</button>
+        </form>
+            <button id="exitForm"> x </button>
+        </div>
+    </div>
+
+    <script src="ToDo.js"></script>
 </body>
 </html>
